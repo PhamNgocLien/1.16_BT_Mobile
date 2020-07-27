@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mobile</title>
+</head>
+<body>
+<script>
+    let Mobile = function () {
+        this.battery = 100;
+        this.mess = "";
+        this.messInput = [];
+        this.messOutput = [];
+        this.status = true;
+
+        this.checkTurnOn = function () {
+            if (this.status) {
+                alert("Turn ON");
+            } else {
+                alert("Turn Off");
+            }
+        }
+
+        this.turnOnOff = function () {
+            if (this.status) {
+                this.status = false;
+            } else {
+                this.status = true;
+            }
+        }
+
+        this.charge = function () {
+            while (this.battery < 100) {
+                setInterval(function(){this.battery += 10}, 3000);
+            }
+        }
+
+        this.writeMess = function (mess) {
+            if (this.battery > 0) {
+                this.mess = mess;
+                this.battery -= 10;
+            }
+        }
+
+        this.send = function (mobile) {
+            if (this.battery > 0) {
+                this.messOutput.push(this.mess);
+                mobile.messInput.push(this.mess);
+                this.battery -= 10;
+            }
+        }
+
+        this.viewMessInput = function () {
+            if (this.battery > 0) {
+                return this.messInput;
+                this.battery -= 10;
+            }
+        }
+
+        this.viewMessOutput = function () {
+            if (this.battery > 0) {
+                return this.messOutput
+                this.battery -= 10;
+            }
+        }
+    }
+
+    let nokia = new Mobile();
+    let iphone = new Mobile();
+    nokia.mess = "This is nokia. Are you iphone?";
+    nokia.writeMess(nokia.mess);
+    nokia.send(iphone);
+    let result = iphone.viewMessInput();
+    alert(result);
+</script>
+</body>
+</html>
